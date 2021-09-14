@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "zajno-dev"
+  },
+  "targets": {
+    "zajno-dev": {
+      "hosting": {
+        "web-stage": [
+          "zajno-dev"
+        ],
+        "web-prod": [
+          "zajno-dev"
+        ]
+      }
+    }
+  }
+}

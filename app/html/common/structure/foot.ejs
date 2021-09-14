@@ -1,0 +1,25 @@
+
+<%
+	const Sitemap = require('sitemap');
+	const page = Sitemap.getPage(Page);
+%>
+
+<% if (page.disableScripts !== 'force') { %>
+
+    @require('../scripts/css-vars-test.html')
+    @require('../scripts/not-supported.html', { "criticalChecks": [ "supportsCssVars" ] })
+
+    <% if (!page.disableScripts) { %>
+    <!-- include additional scripts here BEFORE app scripts will run -->
+    <%= htmlWebpackPlugin.files.js.map(src =>`
+    <script type="module" src="${src}"></script>`).join("\n") %>
+
+    <% } %>
+
+    <!-- include additional scripts here AFTER app scripts will run -->
+
+<% } %>
+
+</body>
+
+</html>

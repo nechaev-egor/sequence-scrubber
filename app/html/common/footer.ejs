@@ -1,0 +1,18 @@
+<%
+    const Sitemap = require('sitemap');
+    // get the page directly to hook it into webpack dev build process
+    const page = Sitemap.getPage(Page);
+
+    const Strings = page.common.footer;
+    const BaseUrl = page.output.href;
+    const year = new Date().getFullYear();
+%>
+
+<footer class="footer">
+
+    <!-- footer markup here -->
+
+</footer>
+
+@require('./mobile-menu-modal.ejs')
+
