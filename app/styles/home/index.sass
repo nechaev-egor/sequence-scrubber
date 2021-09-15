@@ -7,8 +7,6 @@
 // E.g. for using `gem(123)`:
 @import '../common/gem.scss'
 
-#main
-    padding: gem(10)
 
 .blue
     display: flex
@@ -17,15 +15,15 @@
     flex-direction: column
 
 #hero-lightpass
-    max-width: 100vw
-    height: auto
+    height: 100%
+    width: 100%
+    object-fit: cover
     margin: 0 auto
     display: inline-flex
     /* min-width: 100%  */
     align-self: flex-start
     align-content: flex-start
     flex-grow: inherit
-    max-height: 80vh
 
 /* scrubber */
 
@@ -36,6 +34,7 @@
     height: 10px
     position: relative
     clear: both
+    display: none
 
 .scrubber
     background: #e4e4e4

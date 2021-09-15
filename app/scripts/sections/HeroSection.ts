@@ -1,12 +1,14 @@
 
 import Section from 'app/core/section';
-import gsap, { Power1, TweenLite } from 'gsap';
+import gsap, { TweenLite } from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Draggable from 'gsap/Draggable';
 
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(Draggable);
+
+const countOfScroll = 20000;
 export default class HeroSection extends Section {
 
     async setupSection() {
@@ -16,15 +18,13 @@ export default class HeroSection extends Section {
 
         const canvas = document.getElementById('hero-lightpass') as HTMLCanvasElement;
         const context = canvas.getContext('2d');
-        const vw = (coef) => window.innerWidth * (coef / 100);
-        const vh = (coef) => window.innerHeight * (coef / 100);
+        // const vw = (coef) => window.innerWidth * (coef / 100);
+        // const vh = (coef) => window.innerHeight * (coef / 100);
 
         canvas.width = 1600;
         canvas.height = 1200;
 
         const frameCount = 361;
-        // const currentFrame = index => (`https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${(index + 1).toString().padStart(4, '0')}.jpg`
-        // );
         const currentFrame = index => require(`assets/img/sony_png_seq/sony_seq_${(index).toString().padStart(5, '0')}.png`);
 
         const images = [];
@@ -40,13 +40,13 @@ export default class HeroSection extends Section {
 
         const sequenceTL = gsap.timeline()
             // @ts-ignore
-            .to(sequence, { frame: frameCount - 1, snap: 'frame', onUpdate: render });
+            .to(sequence, { frame: frameCount - 1, snap: 'frame', onUpdate: renderCanvas });
 
         ScrollTrigger.create({
             animation: sequenceTL,
             trigger: '.blue',
             start: 1,
-            end: 'center top',
+            end: countOfScroll,
             scrub: 1,
             // pin: false,
         });
@@ -55,13 +55,22 @@ export default class HeroSection extends Section {
             scrub: 1,
             pin: true,
             pinSpacing: true,
+            start: 1,
+            end: countOfScroll,
         });
 
-        images[0].onload = render;
+        images[0].onload = renderCanvas;
 
-        function render() {
+        function renderCanvas() {
+            const sesequenceForRender = sequence;
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(images[sequence.frame], 0, 0);
+            context.drawImage(images[sesequenceForRender.frame], 0, 0);
+        }
+
+        function render(object?: any) {
+            const sesequenceForRender = object;
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(images[sesequenceForRender.frame], 0, 0);
         }
 
 
